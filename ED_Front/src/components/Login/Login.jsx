@@ -7,7 +7,7 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         // Aquí puedes manejar la lógica de autenticación
-        console.log('Email:', email, 'Password:', password);
+        console.log('text:', email, 'Password:', password);
     };
 
     return (
@@ -17,7 +17,7 @@ const Login = () => {
                 <div>
                     <label>Email:</label>
                     <input
-                        type="email"
+                        type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
