@@ -6,7 +6,7 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Aquí puedes manejar la lógica de autenticación
+        // Aquí va la lógica de autenticación
         console.log('text:', email, 'Password:', password);
     };
 
