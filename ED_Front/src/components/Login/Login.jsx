@@ -3,11 +3,35 @@ import React, { useState } from 'react';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Aquí va la lógica de autenticación
-        console.log('text:', email, 'Password:', password);
+        
+        try {
+            const response = await fetch('http://127.0.0.1:5000/admin/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: email, password }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al intentar iniciar sesión');
+            }
+
+            const data = await response.json();
+            if (data.error) {
+                setError(data.error);
+            } else {
+                // Login exitoso: redirigir o manejar sesión
+                console.log('Login exitoso:', data);
+            }
+        } catch (error) {
+            setError('No se pudo iniciar sesión');
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -33,6 +57,7 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit">Login</button>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </form>
         </div>
     );
